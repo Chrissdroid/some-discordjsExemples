@@ -64,7 +64,20 @@ client.on('ready', async () => {
     console.log(`${client.user.tag} online and ready !`);
 });
 
-// Detect message reaction add and add role to member
+// add the default role on arriving
+client.on('guildMemberAdd', member => {
+    if (member.user.bot) return;
+
+    const targetGuild = client.guilds.get(config.defaultGuildID);
+    if (!targetGuild) throw new Error(`Invalid guild ID passed in config.defaultGuildID (${config.defaultGuildID}).`);
+
+    const defaultRole = guild.roles.find(role => role.name === config.defaultRole);
+    if (!defaultRole) throw new Error(`Invalid Role name passed in config.defaultRole (${config.defaultRole}).`);
+
+    member.addRole(defaultRole).catch(err => console.log('ERROR :\n' + err));
+});
+
+// Detect message reaction add and remove role to member
 client.on('messageReactionAdd', async (messageReaction, user) => {
     if (
         !messageReaction.message.guild ||
@@ -84,7 +97,7 @@ client.on('messageReactionAdd', async (messageReaction, user) => {
     if (!member) throw new Error(`Cannot find guildmember (${user.tag}).`);
 
     if (member.roles.has(role)) return;
-    await member.addRole(role).catch(err => console.log('ERROR :\n' + err));
+    await member.removeRole(role).catch(err => console.log('ERROR :\n' + err));
 
     if (config.welcomeMessage) {
         const welcomeChan = targetedGuild.channels.get(config.welcomeChannel);

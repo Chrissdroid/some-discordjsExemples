@@ -71,7 +71,7 @@ client.on('guildMemberAdd', member => {
     const targetGuild = client.guilds.get(config.defaultGuildID);
     if (!targetGuild) throw new Error(`Invalid guild ID passed in config.defaultGuildID (${config.defaultGuildID}).`);
 
-    const defaultRole = guild.roles.find(role => role.name === config.defaultRole);
+    const defaultRole = targetGuild.roles.find(role => role.name === config.defaultRole);
     if (!defaultRole) throw new Error(`Invalid Role name passed in config.defaultRole (${config.defaultRole}).`);
 
     member.addRole(defaultRole).catch(err => console.log('ERROR :\n' + err));

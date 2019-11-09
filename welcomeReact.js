@@ -96,7 +96,7 @@ client.on('messageReactionAdd', async (messageReaction, user) => {
     const member = targetedGuild.members.get(user.id);
     if (!member) throw new Error(`Cannot find guildmember (${user.tag}).`);
 
-    if (member.roles.has(role)) return;
+    if (!member.roles.has(role)) return;
     await member.removeRole(role).catch(err => console.log('ERROR :\n' + err));
 
     if (config.welcomeMessage) {

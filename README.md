@@ -4,9 +4,9 @@
 
 ## Now-a-day Features
  - logSystem.js : A log class for logging in all your want in console and Discord with multiples options avaible !
+ - welcomeReact.js : An Role Reaction for an simple Anti-Raid protection ( with welcoming option ! ).
 
 ## Future Features
- - Role Reaction for an simple Anti-Raid protection
  - An on/off pingable role permission command for single or multiples roles
  - Auto-Moderator on @everone and mass pingging and emoji spam
 
